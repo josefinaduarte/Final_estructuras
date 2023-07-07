@@ -14,10 +14,10 @@ class Router():
     def reset(self):
         pass
 
-    def transmitir_paquete(self):          #Es un metodo del router o de la lista?
+    def analizar_destino_paquete(self):         #El router analiza si el msj tiene como destino ese mismo router (si no lo es se va a transmitir)
         pass
-
-    def analizar_destino_paquete(self):
+    
+    def transmitir_paquete(self):          #Es un metodo del router o de la lista?
         pass
 
     def guardar_datospaquete(self):     #guardar los msjs de los paquetes que pasaron por el router
