@@ -1,4 +1,4 @@
-from Clase_Nodo import *
+from Clase_Router import *
 
 ##en este clase deberia ir algo del pasaje del paquete?
 
@@ -6,7 +6,7 @@ class Lista():
     def __init__(self):
         self.head = None
         self.len = 0
-    def agregarinicio(self, nodo=Nodo):
+    def agregarinicio(self, nodo=Router):
         if(self.len==0): #averiguamos la longitud de mi lista. Si es =0 quiere decir que la lista esvacia, por lo que el head estará direccionada al nodo
             self.head=nodo
             self.len+=1
@@ -21,21 +21,21 @@ class Lista():
             return('Lista Vacia')
         else:
             while nodo!=None:
-                cadena+=str(nodo.dato)+'\t'
+                cadena+=str(nodo.posicion)+'\t'+str(nodo.estado)+'\t'+str(nodo.paquete)+'\t'
                 nodo=nodo.prox
             return cadena
-    def append(self,nodo=Nodo):
+    def append(self,nodo=Router):
         if(self.len==0):
             self.head=nodo
         else:
-            nodomov=Nodo()
+            nodomov=Router()
             nodomov=self.head
             while(nodomov.prox!=None):
                 nodomov=nodomov.prox
             nodomov.prox=nodo
         self.len+=1
     def pop(self,pos=None):
-        nodo=Nodo()
+        nodo=Router()
         nodo=self.head
         if pos==None:
             final=self.len-2

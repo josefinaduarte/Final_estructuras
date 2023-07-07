@@ -1,13 +1,17 @@
 class Router():
-    def __init__(self,posicion,estado,paquete):
+    def __init__(self,posicion,estado="agregado",paquete=None,prox = None):
         self.posicion=posicion
         self.estado=estado
         self.paquete=paquete
+        self.prox=prox
 
     def __str__(self):
         pass
 
-    def cambiar_estado(self):           ##es el mismo para activar, agregar, inactivar y reset?
+    def cambiar_estado(self):           ##es el mismo para activar, inactivar (agregar se hace cin lista enlazada)
+        pass
+
+    def reset(self):
         pass
 
     def transmitir_paquete(self):          #Es un metodo del router o de la lista?

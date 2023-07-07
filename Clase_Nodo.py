@@ -1,3 +1,4 @@
+#creo q no se usa
 class Nodo():
     def __init__ (self, dato = None, prox = None):
         self.dato = dato
