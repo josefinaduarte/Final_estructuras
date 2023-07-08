@@ -13,3 +13,6 @@ class RoutingSim():
 
     def crear_archivo_cambioa_estado():
         pass
+    
+    def baipass():
+        pass
