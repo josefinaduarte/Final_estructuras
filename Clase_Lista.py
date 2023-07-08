@@ -40,6 +40,7 @@ class Lista():
                 nodomov=nodomov.prox
             nodomov.prox=nodo
         self.len+=1
+        nodo.cambiarestado('agregado')
     def pop(self,pos=None):
         nodo=Router()
         nodo=self.head
@@ -82,7 +83,6 @@ mensajes=[mensaje1,mensaje2,mensaje3]
 router1=Router(1)
 router2=Router(2)
 router3=Router(3)
-print('EN CERO')
 routers=[router1,router2,router3]
 if __name__=="__main__":
     lista=Lista()
