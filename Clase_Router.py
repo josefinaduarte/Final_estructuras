@@ -1,8 +1,12 @@
 class Router():
-    def __init__(self,posicion,estado="agregado",paquete=None,prox = None):
+    def __init__(self,posicion,estado="agregado",id=None,mensaje=None,origen=None,destino=None,fecha=None,prox = None):
         self.posicion=posicion
         self.estado=estado
-        self.paquete=paquete
+        self.mensaje=mensaje
+        self.id=id
+        self.destino=destino
+        self.origen=origen
+        self.fecha=fecha
         self.prox=prox
 
     def __str__(self):
