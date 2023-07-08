@@ -1,16 +1,35 @@
+from random import *
+import time
+from datetime import *
+
 class Router():
-    def __init__(self,posicion=None,estado="agregado",id=None,mensaje=None,origen=None,destino=None,fecha=None,prox = None):
+    def __init__(self,posicion=None,estado="agregado",paquete=None,prox = None):
         self.posicion=posicion
         self.estado=estado
-        self.mensaje=mensaje
-        self.id=id
-        self.destino=destino
-        self.origen=origen
-        self.fecha=fecha
+        self.paquete=paquete
+        self.recibidos=0
+        self.enviados=0
         self.prox=prox
 
     def __str__(self):
         pass
+
+    def cambiarestado(self,estado):             #despues habria que hacer bien lo de guardar los datos en el archivo csv
+        self.estado=estado
+        fecha=date.today()
+        hora=datetime.now().strftime("%H:%M:%S")
+        contenido='Router_{},{}, {},{}'.format(self.posicion,fecha,hora,self.estado)
+        print(contenido)
+        #escribirinfo('C:/Users/Tiziana/Documents/PRACTICA FINAL/PRACTUCA FINAL/cambiosestado.py', contenido)
+        if estado=='reset':
+            seg=randint(5,10)
+            time.sleep(seg)
+            estado='activo'
+            self.cambiarestado(estado)
+        if estado=='inactivo':
+            time.sleep(0.1)
+            estado='activo'
+            self.cambiarestado(estado)
 
     def reset(self):
         pass
@@ -22,9 +41,6 @@ class Router():
         pass
 
     def guardar_datospaquete(self):     #guardar los msjs de los paquetes que pasaron por el router
-        pass
-
-    def cambiar_guardar_datoscambioestado(self):             ##es el mismo para activar, inactivar (agregar se hace cin lista enlazada)
         pass
 
     def cantidad_paquetes_envorec(self):        #para tener el dato de la cantidad de paquetes que recibio y envio para el grafico

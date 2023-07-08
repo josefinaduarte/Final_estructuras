@@ -25,7 +25,11 @@ class Lista():
             return('Lista Vacia')
         else:
             while nodo!=None:
-                cadena+=str(nodo.posicion)+'\t'+str(nodo.estado)+'\t'+str(nodo.mensaje)+'\t'
+                cadena+=str(nodo.posicion)+'\t'+str(nodo.estado)+'\t'+str(nodo.recibidos)+'\t'+str(nodo.enviados)+'\t'
+                if nodo.paquete==None:
+                    cadena+="vacio"+'\n'
+                else:
+                    cadena+=str(nodo.paquete.mensaje)+'\n'
                 nodo=nodo.prox
             return cadena
     def append(self,nodo=Router):
@@ -52,43 +56,20 @@ class Lista():
             nodo.prox=nodo.prox.prox
         self.len-=1
     def transmitir_msj(self,router:Router):
-        while router.destino!=router.posicion:
+        while router.paquete.destino!=router.posicion:
             nodosiguiente=router.prox
-            if router.destino!=router.posicion and nodosiguiente.estado!="inactivo" and nodosiguiente.estado!="reset":
-                nodosiguiente.mensaje=router.mensaje
-                nodosiguiente.id=router.id
-                nodosiguiente.origen=router.origen
-                nodosiguiente.destino=router.destino
-                nodosiguiente.fecha=router.fecha
-                router.mensaje=None
-                router.id=None
-                router.origen=None
-                router.destino=None
-                router.fecha=None
+            if router.paquete.destino!=router.posicion and nodosiguiente.estado!="inactivo" and nodosiguiente.estado!="reset":
+                nodosiguiente.paquete=router.paquete
+                router.paquete=None
+                router.enviados+=1
                 router=router.prox
                 ## Habria q tener encuanta aca lo del tiempo de latencia
             elif nodosiguiente.estado=="inactivo":
                 pass
             elif nodosiguiente.estado=="reset":
                 pass
+        router.recibidos+=1
 
-
-    def cambiarestado(self,router,estado): 
-        router.estado=estado
-        fecha=date.today()
-        hora=datetime.now().strftime("%H:%M:%S")
-        contenido='Router_{},{}, {},{}'.format(router.posicion,fecha,hora,router.estado)
-        print(contenido)
-        #escribirinfo('C:/Users/Tiziana/Documents/PRACTICA FINAL/PRACTUCA FINAL/cambiosestado.py', contenido)
-        if estado=='reset':
-            seg=randint(5,10)
-            time.sleep(seg)
-            estado='activo'
-            self.cambiarestado(router,estado)
-        if estado=='inactivo':
-            time.sleep(0.1)
-            estado='activo'
-            self.cambiarestado(router,estado)
 
 
 
@@ -108,11 +89,7 @@ if __name__=="__main__":
     lista.append(router1)
     lista.append(router2)
     lista.append(router3)
-    router1.mensaje=mensaje1.mensaje
-    router1.id=mensaje1.id
-    router1.origen=mensaje1.origen
-    router1.destino=mensaje1.destino
-    router1.fecha=mensaje1.fecha_salida
+    router1.paquete=mensaje1
     print(lista)
     lista.transmitir_msj(router1)
     print(lista)
