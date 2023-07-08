@@ -1,8 +1,6 @@
 from Clase_Router import *
 from Clase_paquete import *
 from random import *
-import time
-from datetime import *
 ##en este clase deberia ir algo del pasaje del paquete?
 
 class Lista():
@@ -63,6 +61,7 @@ class Lista():
                 router.paquete=None
                 router.enviados+=1
                 router=router.prox
+                router.cambiarestado('inactivo')
                 ## Habria q tener encuanta aca lo del tiempo de latencia
             elif nodosiguiente.estado=="inactivo":
                 pass
@@ -83,6 +82,7 @@ mensajes=[mensaje1,mensaje2,mensaje3]
 router1=Router(1)
 router2=Router(2)
 router3=Router(3)
+print('EN CERO')
 routers=[router1,router2,router3]
 if __name__=="__main__":
     lista=Lista()

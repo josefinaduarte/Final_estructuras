@@ -1,9 +1,12 @@
 from random import *
-import time
+from time import sleep as time_sleep
 from datetime import *
-
+ 
 class Router():
+    estados_validos = set(['agregado', 'activo', 'inactivo', 'reset'])
     def __init__(self,posicion=None,estado="agregado",paquete=None,prox = None):
+        if estado not in Router.estados_validos:
+            raise ValueError("el estado no es valido")
         self.posicion=posicion
         self.estado=estado
         self.paquete=paquete
@@ -12,7 +15,8 @@ class Router():
         self.prox=prox
 
     def __str__(self):
-        pass
+        return 'La posicion del Router es {} , su estado es{}, su paquete es {}'.format(self.posicion,self.estado,self.paquete)
+
 
     def cambiarestado(self,estado):             #despues habria que hacer bien lo de guardar los datos en el archivo csv
         self.estado=estado
@@ -23,11 +27,11 @@ class Router():
         #escribirinfo('C:/Users/Tiziana/Documents/PRACTICA FINAL/PRACTUCA FINAL/cambiosestado.py', contenido)
         if estado=='reset':
             seg=randint(5,10)
-            time.sleep(seg)
+            time_sleep(seg)
             estado='activo'
             self.cambiarestado(estado)
         if estado=='inactivo':
-            time.sleep(0.1)
+            time_sleep(0.1)
             estado='activo'
             self.cambiarestado(estado)
 
@@ -45,3 +49,6 @@ class Router():
 
     def cantidad_paquetes_envorec(self):        #para tener el dato de la cantidad de paquetes que recibio y envio para el grafico
         pass
+
+router1=Router(1)
+router1.cambiarestado('nuevo')
