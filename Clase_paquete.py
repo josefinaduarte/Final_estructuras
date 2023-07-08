@@ -9,6 +9,5 @@ class Paquete():
     def __str__(self):
         pass
 
-    def crear_paquete(self):
-        pass
+
 
