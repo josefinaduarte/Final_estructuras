@@ -74,13 +74,20 @@ mensaje1=Paquete(1,"Hola como estas",1,3,"24/03/2023, 11:11:11")
 mensaje2=Paquete(1,"chau",2,3,"24/03/2023, 11:11:11")
 mensaje3=Paquete(1,"bhikuhl",1,2,"24/03/2023, 16:11:11")
 mensajes=[mensaje1,mensaje2,mensaje3]
+# router1=Router(1)
+# router2=Router(2)
+# router3=Router(3)
 router1=Router(1)
 router2=Router(2)
 router3=Router(3)
 routers=[router1,router2,router3]
 if __name__=="__main__":
-    lista=Lista
+    lista=Lista()
     lista.append(router1)
     lista.append(router2)
     lista.append(router3)
     print(lista)
+
+# router1=Router(1,'agregado', None,None,None,None,None)
+# router2=Router(2,None,None,None,None,None,None)
+# router3=Router(3,None,None,None,None,None,None)
