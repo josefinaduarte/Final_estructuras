@@ -14,7 +14,7 @@ class Router():
     def analizar_destino_paquete(self):         #El router analiza si el msj tiene como destino ese mismo router (si no lo es se va a transmitir)
         pass
 
-    def transmitir_paquete(self):          #Es un metodo del router o de la lista?
+    def transmitir_paquete(self):          #Es un metodo del router o de la lista? deberiamos incluir entre transmision y transmision el tiempo de latencia
         pass
 
     def guardar_datospaquete(self):     #guardar los msjs de los paquetes que pasaron por el router
