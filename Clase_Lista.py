@@ -1,6 +1,8 @@
 from Clase_Router import *
 from Clase_paquete import *
-
+from random import *
+import time
+from datetime import *
 ##en este clase deberia ir algo del pasaje del paquete?
 
 class Lista():
@@ -71,6 +73,22 @@ class Lista():
                 pass
 
 
+    def cambiarestado(self,router,estado): 
+        router.estado=estado
+        fecha=date.today()
+        hora=datetime.now().strftime("%H:%M:%S")
+        contenido='Router_{},{}, {},{}'.format(router.posicion,fecha,hora,router.estado)
+        print(contenido)
+        #escribirinfo('C:/Users/Tiziana/Documents/PRACTICA FINAL/PRACTUCA FINAL/cambiosestado.py', contenido)
+        if estado=='reset':
+            seg=randint(5,10)
+            time.sleep(seg)
+            estado='activo'
+            self.cambiarestado(router,estado)
+        if estado=='inactivo':
+            time.sleep(0.1)
+            estado='activo'
+            self.cambiarestado(router,estado)
 
 
 
