@@ -50,29 +50,33 @@ class Lista():
             nodo.prox=nodo.prox.prox
         self.len-=1
     def transmitir_msj(self,router:Router):
-        nodosiguiente=router.prox
-        if router.destino!=router.posicion and nodosiguiente.estado!="inactivo" and nodosiguiente.estado!="reset":
-            nodosiguiente.mensaje=router.mensaje
-            nodosiguiente.id=router.id
-            nodosiguiente.origen=router.origen
-            nodosiguiente.destino=router.destino
-            nodosiguiente.fecha=router.fecha
-            router.mensaje=None
-            router.id=None
-            router.origen=None
-            router.destino=None
-            router.fecha=None
-        elif nodosiguiente.estado=="inactivo":
-            pass
-        elif nodosiguiente.estado=="reset":
-            pass
+        while router.destino!=router.posicion:
+            nodosiguiente=router.prox
+            if router.destino!=router.posicion and nodosiguiente.estado!="inactivo" and nodosiguiente.estado!="reset":
+                nodosiguiente.mensaje=router.mensaje
+                nodosiguiente.id=router.id
+                nodosiguiente.origen=router.origen
+                nodosiguiente.destino=router.destino
+                nodosiguiente.fecha=router.fecha
+                router.mensaje=None
+                router.id=None
+                router.origen=None
+                router.destino=None
+                router.fecha=None
+                router=router.prox
+                ## Habria q tener encuanta aca lo del tiempo de latencia
+            elif nodosiguiente.estado=="inactivo":
+                pass
+            elif nodosiguiente.estado=="reset":
+                pass
+
 
 
 
 
 mensaje1=Paquete(1,"Hola como estas",1,3,"24/03/2023, 11:11:11")
-mensaje2=Paquete(1,"chau",2,3,"24/03/2023, 11:11:11")
-mensaje3=Paquete(1,"bhikuhl",1,2,"24/03/2023, 16:11:11")
+mensaje2=Paquete(2,"chau",2,3,"24/03/2023, 11:11:11")
+mensaje3=Paquete(3,"bhikuhl",1,2,"24/03/2023, 16:11:11")
 mensajes=[mensaje1,mensaje2,mensaje3]
 # router1=Router(1)
 # router2=Router(2)
@@ -86,6 +90,13 @@ if __name__=="__main__":
     lista.append(router1)
     lista.append(router2)
     lista.append(router3)
+    router1.mensaje=mensaje1.mensaje
+    router1.id=mensaje1.id
+    router1.origen=mensaje1.origen
+    router1.destino=mensaje1.destino
+    router1.fecha=mensaje1.fecha_salida
+    print(lista)
+    lista.transmitir_msj(router1)
     print(lista)
 
 # router1=Router(1,'agregado', None,None,None,None,None)
