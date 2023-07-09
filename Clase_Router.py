@@ -56,7 +56,9 @@ class Router():
                 ar.close()
             except IOError:
                 print("Hubo un error al abrir el archivo del router "+str(self.posicion))
-
+    def esta_averiado(self):
+        x=bool(randint(0,1))
+        return x
     #creo q estos metodos ya no hacen falta
     def reset(self):
         pass
