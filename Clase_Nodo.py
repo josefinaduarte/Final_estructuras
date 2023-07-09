@@ -5,3 +5,4 @@ class Nodo():
         self.prox = prox
     def __str__(self):
         return str(self.dato)
+    

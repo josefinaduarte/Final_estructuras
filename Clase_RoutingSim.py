@@ -11,7 +11,7 @@ mensajes=[mensaje1,mensaje2,mensaje3]
 router1=Router(1)
 router2=Router(2)
 router3=Router(3)
-routers=[router1,router2,router3]
+routers=Lista()
 
 class RoutingSim():
     def __init__(self,tiempo,mensajes,routers):
@@ -21,36 +21,32 @@ class RoutingSim():
         self.routers=routers
         #arranca threat
 
+        inicio = datetime.now
 
-
-        threading_emails = threading.Thread(target=self.generador_paquetes, args=("Snake",lista))
+        threading_emails = threading.Thread(target=self.generador_paquetes, args=(lista, inicio)) #lista de mensajes
 
     # Lo lanzo
 
         threading_emails.start()
 
-
             ## generar paquetes aleatorios cada tiempo aleatorio
 
-        
-
             ## romper router cada tiempo aleatorio
+            
+        fin = datetime.now()
+        timer = (fin- inicio)
         while timer < tiempo:
             while evento == False and  timer < tiempo:
 
-                if len(self.mensaje) > 0:
+                if len(self.mensajes) > 0:
                     evento = True
-
-
 
             men = self.mensajes.pop(0)
             #soluciono el evento
             #enviar men
+            Lista.transmitir_msj(men)
             evento = False
 
-
-
-       
 
 
     def enviar_paquete(self,r,paquete):
@@ -59,8 +55,8 @@ class RoutingSim():
             pass
         ## espero por la latencia
 
-    def generador_paquetes(self):
-        fin = time.now()
+    def generador_paquetes(self , lista, inicio):
+        fin = datetime.now()
         while tiempo > fin- inicio:
             #tiempo aleatorio
             time_sleep(randint((fin- inicio),tiempo))
