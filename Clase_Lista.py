@@ -62,11 +62,10 @@ class Lista():
                 nodosiguiente.paquete=router.paquete
                 router.paquete=None
                 router.enviados+=1
-                router=router.prox
                 router.cambiarestado('inactivo')
                 if router.esta_averiado==True:
                     router.cambiarestado('reset')
-                ## Habria q tener encuanta aca lo del tiempo de latencia
+                router=router.prox
             elif nodosiguiente.estado=="inactivo":
                 pass
             elif nodosiguiente.estado=="reset":

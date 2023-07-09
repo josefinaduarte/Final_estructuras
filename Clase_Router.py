@@ -5,7 +5,7 @@ import csv
  
 class Router():
     estados_validos = set(['agregado', 'activo', 'inactivo', 'reset'])
-    def __init__(self,posicion=None,estado="agregado",paquete=None,prox = None):
+    def __init__(self,posicion=None,estado=None,paquete=None,prox = None):
         if estado not in Router.estados_validos:
             raise ValueError("el estado no es valido")
         self.posicion=posicion
@@ -16,7 +16,19 @@ class Router():
         self.prox=prox
 
     def __str__(self):
-        return 'La posicion del Router es {} , su estado es{}, su paquete es {}'.format(self.posicion,self.estado,self.paquete)
+        if self.paquete==None:
+            paq="vacio"
+        else:
+            paq=self.paquete.mensaje
+        if self.estado==None:
+            est="-"
+        else:
+            est=self.estado
+        if self.posicion==None:
+            pos="-"
+        else:
+            pos=self.posicion
+        return 'La posicion del Router es {} , su estado es {}, su paquete es {}'.format(pos,est,paq)
 
 
     def cambiarestado(self,estado):             #despues habria que hacer bien lo de guardar los datos en el archivo csv
@@ -73,4 +85,5 @@ class Router():
         pass
 
 router1=Router(1)
-router1.cambiarestado('nuevo')
+print(router1)
+#router1.cambiarestado('nuevo')
