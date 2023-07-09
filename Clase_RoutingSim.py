@@ -15,9 +15,42 @@ routers=[router1,router2,router3]
 
 class RoutingSim():
     def __init__(self,tiempo,mensajes,routers):
+        #defina los eventos
+    
+        #arranca threat
+
+
+        ## generar paquetes aleatorios cada tiempo aleatorio
+
+    
+
+        ## romper router cada tiempo aleatorio
+        while timer < tiempo:
+            while evento == false:
+
+                if paquetes != []:
+                    evento = True
+                    
+                
+                if caida:
+                    evento = True 
+            #soluciono el evento
+            if paquete:
+                enviar_paquete()
+            if caida:
+                routers[0].cambiarestado('reset')
+                router.esta_averiado = True
+                router.cambiarestado('reset')
+                router.esta_averiado = False
+
+            evento = False
+
+
+
         self.tiempo=tiempo
         self.mensajes=mensajes
         self.routers=routers
+
 
     def mostrar_tasas(self):
         for router in self.routers:
