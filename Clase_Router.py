@@ -2,10 +2,11 @@ from random import *
 from time import sleep as time_sleep
 from datetime import *
 import csv
+import threading
  
 class Router():
     estados_validos = set(['agregado', 'activo', 'inactivo', 'reset'])
-    def __init__(self,posicion=None,estado=None,paquete=None,prox = None):
+    def __init__(self,posicion=None,estado=None,paquete=None,prox = None,tiempo=0):
         if estado not in Router.estados_validos:
             raise ValueError("el estado no es valido")
         self.posicion=posicion
@@ -14,6 +15,20 @@ class Router():
         self.recibidos=0
         self.enviados=0
         self.prox=prox
+
+        #arrancas el threath que lo rompe cada tanto
+        threading_emails = threading.Thread(target=self.caida, args=(tiempo,))
+        threading_emails.start()
+
+    def caidas(self):
+        fin = time.now()
+        while tiempo > fin- inicio:
+            #tiempo aleatorio
+            time_sleep(randint((fin- inicio),tiempo))
+            if self.paquete==None:
+                self.cambiarestado('reset')
+            fin = time.now()
+
 
     def __str__(self):
         if self.paquete==None:

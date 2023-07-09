@@ -16,40 +16,62 @@ routers=[router1,router2,router3]
 class RoutingSim():
     def __init__(self,tiempo,mensajes,routers):
         #defina los eventos
-    
+        self.tiempo=tiempo
+        self.mensajes=mensajes
+        self.routers=routers
         #arranca threat
 
 
-        ## generar paquetes aleatorios cada tiempo aleatorio
 
-    
+        threading_emails = threading.Thread(target=self.generador_paquetes, args=("Snake",lista))
 
-        ## romper router cada tiempo aleatorio
+    # Lo lanzo
+
+        threading_emails.start()
+
+
+            ## generar paquetes aleatorios cada tiempo aleatorio
+
+        
+
+            ## romper router cada tiempo aleatorio
         while timer < tiempo:
-            while evento == false:
+            while evento == False and  timer < tiempo:
 
-                if paquetes != []:
+                if len(self.mensaje) > 0:
                     evento = True
-                    
-                
-                if caida:
-                    evento = True 
-            #soluciono el evento
-            if paquete:
-                enviar_paquete()
-            if caida:
-                routers[0].cambiarestado('reset')
-                router.esta_averiado = True
-                router.cambiarestado('reset')
-                router.esta_averiado = False
 
+
+
+            men = self.mensajes.pop(0)
+            #soluciono el evento
+            #enviar men
             evento = False
 
 
 
-        self.tiempo=tiempo
-        self.mensajes=mensajes
-        self.routers=routers
+       
+
+
+    def enviar_paquete(self,r,paquete):
+        ##espera que se libere el router
+        while r.estado != 'inactivo'or ocupado:
+            pass
+        ## espero por la latencia
+
+    def generador_paquetes(self):
+        fin = time.now()
+        while tiempo > fin- inicio:
+            #tiempo aleatorio
+            time_sleep(randint((fin- inicio),tiempo))
+            ##genero paquete aleatorio
+
+            ##agreguo paquete en la lista mensajes
+
+
+
+            fin = time.now()
+
 
 
     def mostrar_tasas(self):

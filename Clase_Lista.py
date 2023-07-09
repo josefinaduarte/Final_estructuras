@@ -1,6 +1,7 @@
 from Clase_Router import *
 from Clase_paquete import *
 from random import *
+import threading
 ##en este clase deberia ir algo del pasaje del paquete?
 
 class Lista():
@@ -58,23 +59,33 @@ class Lista():
         while router.paquete.destino!=router.posicion:
             nodosiguiente=router.prox
             if router.paquete.destino!=router.posicion and nodosiguiente.estado!="inactivo" and nodosiguiente.estado!="reset":
-                router.guardar_datospaquete()
-                nodosiguiente.paquete=router.paquete
-                router.paquete=None
-                router.enviados+=1
-                router.cambiarestado('inactivo')
-                if router.esta_averiado==True:
-                    router.cambiarestado('reset')
+                if router_activo:
+                    router.guardar_datospaquete()
+                    nodosiguiente.paquete=router.paquete
+                    router.paquete=None
+                    router.enviados+=1
+                    #pondria threath para cambiar estado
+                    threading_emails = threading.Thread(target=router.cambiarestado, args=("inactivo",))
+                    threading_emails.start()
+                    # router.cambiarestado('inactivo')
+
+                    # if router.esta_averiado==True:
+                    #     router.cambiarestado('reset')
                 router=router.prox
             elif nodosiguiente.estado=="inactivo":
                 pass
             elif nodosiguiente.estado=="reset":
                 pass
+            # si el nodo siguiente esta apagado o inactivo, y es el nodo de destino
+            elif (nodosiguiente.estado=="reset" or  nodosiguiente.estado=="inactivo") and nodosiguiente.estado==router.paquete.destino:
+                while nodosiguiente.estado=="reset" or  nodosiguiente.estado=="inactivo":
+                    pass
+                ## envio
+
         router.recibidos+=1
         router.guardar_datospaquete()
 
-
-
+[1,2,3,4,5,6]
 
 mensaje1=Paquete(1,"Hola como estas",1,3,"24/03/2023, 11:11:11")
 mensaje2=Paquete(2,"chau",2,3,"24/03/2023, 11:11:11")
