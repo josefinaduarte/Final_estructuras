@@ -6,7 +6,7 @@ import threading
  
 class Router():
     estados_validos = set(['agregado', 'activo', 'inactivo', 'reset'])
-    def __init__(self,posicion=None,estado=None,paquete=None,prox = None,tiempo=0):
+    def __init__(self,tiempo,inicio,posicion=None,estado=None,paquete=None,prox = None):  ##esta bien pasarle el tiempo y el inicio asi?
         if estado not in Router.estados_validos:
             raise ValueError("el estado no es valido")
         self.posicion=posicion
@@ -17,17 +17,17 @@ class Router():
         self.prox=prox
 
         #arrancas el threath que lo rompe cada tanto
-        threading_emails = threading.Thread(target=self.caida, args=(tiempo,))
-        threading_emails.start()
+        threading_caidas = threading.Thread(target=self.caidas, args=(tiempo,inicio))
+        threading_caidas.start()
 
-    def caidas(self):
-        fin = time.now()
+    def caidas(self,tiempo,inicio):
+        fin = datetime.now()
         while tiempo > fin- inicio:
             #tiempo aleatorio
             time_sleep(randint((fin- inicio),tiempo))
             if self.paquete==None:
                 self.cambiarestado('reset')
-            fin = time.now()
+            fin = datetime.now()
 
 
     def __str__(self):
@@ -83,10 +83,13 @@ class Router():
                 ar.close()
             except IOError:
                 print("Hubo un error al abrir el archivo del router "+str(self.posicion))
+    
+
+    #creo q estos metodos ya no hacen falta
     def esta_averiado(self):
         x=bool(randint(0,1))
         return x
-    #creo q estos metodos ya no hacen falta
+    
     def reset(self):
         pass
 

@@ -34,12 +34,14 @@ class Lista():
     def append(self,nodo=Router):
         if(self.len==0):
             self.head=nodo
+            nodo.prox=self.head  #conectar el final con la cabeza
         else:
             nodomov=Router()
             nodomov=self.head
             while(nodomov.prox!=None):
                 nodomov=nodomov.prox
             nodomov.prox=nodo
+            nodo.prox=self.head      #conectar el final con la cabeza
         self.len+=1
         nodo.cambiarestado('agregado')
     def pop(self,pos=None):
@@ -59,29 +61,44 @@ class Lista():
         while router.paquete.destino!=router.posicion:
             nodosiguiente=router.prox
             if router.paquete.destino!=router.posicion and nodosiguiente.estado!="inactivo" and nodosiguiente.estado!="reset":
-                if router_activo:
+                if router.estado=="activo":
                     router.guardar_datospaquete()
                     nodosiguiente.paquete=router.paquete
                     router.paquete=None
                     router.enviados+=1
                     #pondria threath para cambiar estado
-                    threading_emails = threading.Thread(target=router.cambiarestado, args=("inactivo",))
-                    threading_emails.start()
+                    threading_cambiarestado = threading.Thread(target=router.cambiarestado, args=("inactivo",))
+                    threading_cambiarestado.start()
                     # router.cambiarestado('inactivo')
 
                     # if router.esta_averiado==True:
                     #     router.cambiarestado('reset')
                 router=router.prox
-            elif nodosiguiente.estado=="inactivo":
-                pass
-            elif nodosiguiente.estado=="reset":
-                pass
+            elif nodosiguiente.estado=="inactivo" or nodosiguiente.estado=="reset":
+                while nodosiguiente.prox.estado=="inactivo" or nodosiguiente.prox.estado=="reset":
+                    nodosiguiente=nodosiguiente.prox
+                if router.estado=="activo":
+                    router.guardar_datospaquete()
+                    nodosiguiente.paquete=router.paquete
+                    router.paquete=None
+                    router.enviados+=1
+                    #pondria threath para cambiar estado
+                    threading_cambiarestado = threading.Thread(target=router.cambiarestado, args=("inactivo",))
+                    threading_cambiarestado.start()
+                router=nodosiguiente
             # si el nodo siguiente esta apagado o inactivo, y es el nodo de destino
-            elif (nodosiguiente.estado=="reset" or  nodosiguiente.estado=="inactivo") and nodosiguiente.estado==router.paquete.destino:
+            elif (nodosiguiente.estado=="reset" or  nodosiguiente.estado=="inactivo") and nodosiguiente.posicion==router.paquete.destino:
                 while nodosiguiente.estado=="reset" or  nodosiguiente.estado=="inactivo":
                     pass
                 ## envio
-
+                if router.estado=="activo":
+                    router.guardar_datospaquete()
+                    nodosiguiente.paquete=router.paquete
+                    router.paquete=None
+                    router.enviados+=1
+                    #pondria threath para cambiar estado
+                    threading_cambiarestado = threading.Thread(target=router.cambiarestado, args=("inactivo",))
+                    threading_cambiarestado.start()
         router.recibidos+=1
         router.guardar_datospaquete()
 

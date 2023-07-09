@@ -14,20 +14,20 @@ router3=Router(3)
 routers=Lista()
 
 class RoutingSim():
-    def __init__(self,tiempo,mensajes,routers):
+    def __init__(self,tiempo,paquetes):
         #defina los eventos
         self.tiempo=tiempo
-        self.mensajes=mensajes
-        self.routers=routers
+        self.paquetes=paquetes
+        self.routers=Lista()
         #arranca threat
 
         inicio = datetime.now
 
-        threading_emails = threading.Thread(target=self.generador_paquetes, args=(lista, inicio)) #lista de mensajes
+        threading_generarpaq = threading.Thread(target=self.generador_paquetes, args=(self.paquetes, inicio)) #lista de mensajes
 
     # Lo lanzo
 
-        threading_emails.start()
+        threading_generarpaq.start()
 
             ## generar paquetes aleatorios cada tiempo aleatorio
 
@@ -35,38 +35,48 @@ class RoutingSim():
             
         fin = datetime.now()
         timer = (fin- inicio)
+        evento=False
         while timer < tiempo:
             while evento == False and  timer < tiempo:
 
                 if len(self.mensajes) > 0:
                     evento = True
 
-            men = self.mensajes.pop(0)
+            paq = self.mensajes.pop(0)
             #soluciono el evento
             #enviar men
-            Lista.transmitir_msj(men)
+            for router in self.routers:
+                if paq.origen==router.posicion:
+                    router.paquete=paq
+                    r=router
+            self.routers.transmitir_msj(r)
             evento = False
 
 
 
-    def enviar_paquete(self,r,paquete):
-        ##espera que se libere el router
-        while r.estado != 'inactivo'or ocupado:
-            pass
-        ## espero por la latencia
+    # def enviar_paquete(self,r,paquete):
+    #     ##espera que se libere el router
+    #     while r.estado != 'inactivo'or ocupado:
+    #         pass
+    #     ## espero por la latencia
 
     def generador_paquetes(self , lista, inicio):
         fin = datetime.now()
-        while tiempo > fin- inicio:
+        while self.tiempo > fin- inicio:
             #tiempo aleatorio
-            time_sleep(randint((fin- inicio),tiempo))
+            time_sleep(randint((fin- inicio),self.tiempo))
             ##genero paquete aleatorio
-
+            id=int(lista[-1].id)+1
+            mensaje=""
+            orig=randint(1,len(self.routers))
+            dest=randint(1,len(self.routers))
+            fecha=datetime.now()
+            paquete=Paquete(id,mensaje,orig,dest,fecha)
             ##agreguo paquete en la lista mensajes
+            lista.append(paquete)
 
 
-
-            fin = time.now()
+            fin = datetime.now()
 
 
 
