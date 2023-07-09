@@ -42,15 +42,6 @@ class Router():
             estado='activo'
             self.cambiarestado(estado)
 
-    def reset(self):
-        pass
-
-    def analizar_destino_paquete(self):         #El router analiza si el msj tiene como destino ese mismo router (si no lo es se va a transmitir)
-        pass
-
-    def transmitir_paquete(self):          #Es un metodo del router o de la lista? deberiamos incluir entre transmision y transmision el tiempo de latencia
-        pass
-
     def guardar_datospaquete(self):     #guardar los msjs de los paquetes que pasaron por el router
         if self.paquete!=None:
             try:
@@ -66,6 +57,15 @@ class Router():
             except IOError:
                 print("Hubo un error al abrir el archivo del router "+str(self.posicion))
 
+    #creo q estos metodos ya no hacen falta
+    def reset(self):
+        pass
+
+    def analizar_destino_paquete(self):         #El router analiza si el msj tiene como destino ese mismo router (si no lo es se va a transmitir)
+        pass
+
+    def transmitir_paquete(self):          #Es un metodo del router o de la lista? deberiamos incluir entre transmision y transmision el tiempo de latencia
+        pass
 
     def cantidad_paquetes_envorec(self):        #para tener el dato de la cantidad de paquetes que recibio y envio para el grafico
         pass
