@@ -2,6 +2,7 @@ from Clase_Lista import *
 from Clase_Router import *
 from Clase_paquete import *
 from datetime import *
+import matplotlib.pyplot as plt
 
 mensaje1=Paquete(1,"Hola como estas",1,3,"24/03/2023, 11:11:11")
 mensaje2=Paquete(1,"chau",2,3,"24/03/2023, 11:11:11")
@@ -18,11 +19,32 @@ class RoutingSim():
         self.mensajes=mensajes
         self.routers=routers
 
-    def mostrar_tasas():
-        pass
+    def mostrar_tasas(self):
+        for router in self.routers:
+            print("Router "+str(router.posicion)+":")
+            print("Tasa de paquetes enviados: "+str(router.enviados/self.tiempo))
+            print("Tasa de paquetes recibidos: "+str(router.recibidos/self.tiempo))
 
-    def grafico():
-        pass
+    def grafico(self):
+        lista_enviados=[]
+        lista_recibidos=[]
+        lista_routers=[]
+        for router in self.routers:
+            lista_routers.append("Router "+str(router.posicion))
+            lista_enviados.append(router.enviados)
+            lista_recibidos.append(router.recibidos)
+        print(routers)
+        print(lista_enviados,lista_recibidos)
+        plt.title(label="Cantidad de paquetes enviados por router")
+        plt.xlabel("Routers")
+        plt.ylabel("Cantidad de paquetes enviados")
+        plt.bar(lista_routers,lista_enviados,color="green",width=0.5)
+        plt.show()
+        plt.title(label="Cantidad de paquetes recibidos por router")
+        plt.xlabel("Routers")
+        plt.ylabel("Cantidad de paquetes recibidos")
+        plt.bar(lista_routers,lista_recibidos,color="blue",width=0.5)
+        plt.show()
 
     def crear_archivos_routers():
         pass
