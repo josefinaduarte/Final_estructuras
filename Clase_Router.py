@@ -1,6 +1,7 @@
 from random import *
 from time import sleep as time_sleep
 from datetime import *
+import csv
  
 class Router():
     estados_validos = set(['agregado', 'activo', 'inactivo', 'reset'])
@@ -24,6 +25,12 @@ class Router():
         hora=datetime.now().strftime("%H:%M:%S")
         contenido='Router_{},{}, {},{}'.format(self.posicion,fecha,hora,self.estado)
         print(contenido)
+        try:
+            with open('system_log.csv', 'a+', newline='') as archivo_csv:
+                writer = csv.writer(archivo_csv)
+                writer.writerow(contenido)
+        except:
+            print("Hubo un error con el archivo")
         #escribirinfo('C:/Users/Tiziana/Documents/PRACTICA FINAL/PRACTUCA FINAL/cambiosestado.py', contenido)
         if estado=='reset':
             seg=randint(5,10)
@@ -45,7 +52,20 @@ class Router():
         pass
 
     def guardar_datospaquete(self):     #guardar los msjs de los paquetes que pasaron por el router
-        pass
+        if self.paquete!=None:
+            try:
+                archivo="Router_"+str(self.posicion)+".txt"
+                #archivo=r"C:\Users\Jose\Documents\facultad\Segundo año\pruebas final estructuras\hola.txt"
+                print(archivo)
+                ar=open(archivo,'a+')
+                cadena="Origen: ROUTER_"+str(self.paquete.origen)+"\n"
+                ar.write(cadena)
+                cadena=str(self.paquete.mensaje)+"\n"
+                ar.write(cadena)
+                ar.close()
+            except IOError:
+                print("Hubo un error al abrir el archivo del router "+str(self.posicion))
+
 
     def cantidad_paquetes_envorec(self):        #para tener el dato de la cantidad de paquetes que recibio y envio para el grafico
         pass

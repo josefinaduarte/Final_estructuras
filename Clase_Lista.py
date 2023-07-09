@@ -58,6 +58,7 @@ class Lista():
         while router.paquete.destino!=router.posicion:
             nodosiguiente=router.prox
             if router.paquete.destino!=router.posicion and nodosiguiente.estado!="inactivo" and nodosiguiente.estado!="reset":
+                router.guardar_datospaquete()
                 nodosiguiente.paquete=router.paquete
                 router.paquete=None
                 router.enviados+=1
@@ -69,6 +70,7 @@ class Lista():
             elif nodosiguiente.estado=="reset":
                 pass
         router.recibidos+=1
+        router.guardar_datospaquete()
 
 
 
