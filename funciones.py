@@ -18,6 +18,6 @@ def generar_msja():
     mensaje=""
     long=randint(10,30)
     for i in range(long):
-        pos=randint(0,len(cadena))
+        pos=randint(0,len(cadena)-1)
         mensaje+=cadena[pos]
     return mensaje
