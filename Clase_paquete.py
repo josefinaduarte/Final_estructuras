@@ -7,7 +7,7 @@ class Paquete():
         self.fecha_crea=fecha_crea
 
     def __str__(self):
-        pass
+        return 'El mensaje del paquete es {} , su origen es {}, y su destino es {}'.format(self.mensaje,self.origen,self.destino)
 
 
 

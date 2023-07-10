@@ -3,6 +3,7 @@ from Clase_Router import *
 from Clase_paquete import *
 from datetime import *
 import matplotlib.pyplot as plt
+from funciones import *
 
 mensaje1=Paquete(1,"Hola como estas",1,3,"24/03/2023, 11:11:11")
 mensaje2=Paquete(1,"chau",2,3,"24/03/2023, 11:11:11")
@@ -67,7 +68,7 @@ class RoutingSim():
             time_sleep(randint((fin- inicio),self.tiempo))
             ##genero paquete aleatorio
             id=int(lista[-1].id)+1
-            mensaje=""
+            mensaje=generar_msja()
             orig=randint(1,len(self.routers))
             dest=randint(1,len(self.routers))
             fecha=datetime.now()
