@@ -5,12 +5,10 @@ import csv
 import threading
  
 class Router():
-    estados_validos = set(['agregado', 'activo', 'inactivo', 'reset'])
+    
     def __init__(self,tiempo,posicion,estado=None,paquete=None,prox = None):  ##esta bien pasarle el tiempo y el inicio asi?
         
         inicio = datetime.now()
-        # if estado not in Router.estados_validos:
-        #     raise ValueError("el estado no es valido")
         self.posicion=posicion
         self.estado=estado
         self.paquete=paquete
@@ -50,7 +48,7 @@ class Router():
         return 'La posicion del Router es {} , su estado es {}, su paquete es {}'.format(pos,est,paq)
 
 
-    def cambiarestado(self,estado):             #despues habria que hacer bien lo de guardar los datos en el archivo csv
+    def cambiarestado(self,estado):             
         self.estado=estado
         fecha=date.today()
         hora=datetime.now().strftime("%H:%M:%S")
@@ -61,7 +59,7 @@ class Router():
                 writer.writerow(contenido)
         except:
             print("Hubo un error con el archivo")
-        #escribirinfo('C:/Users/Tiziana/Documents/PRACTICA FINAL/PRACTUCA FINAL/cambiosestado.py', contenido)
+        
         if estado=='reset':
             seg=randint(5,10)
             time_sleep(seg)
@@ -76,7 +74,7 @@ class Router():
         if self.paquete!=None:
             try:
                 archivo="Router_"+str(self.posicion)+".txt"
-                #archivo=r"C:\Users\Jose\Documents\facultad\Segundo año\pruebas final estructuras\hola.txt"
+               
                 
                 ar=open(archivo,'a+')
                 cadena="Origen: ROUTER_"+str(self.paquete.origen)+"\n"
@@ -88,20 +86,5 @@ class Router():
                 print("Hubo un error al abrir el archivo del router "+str(self.posicion))
     
 
-    #creo q estos metodos ya no hacen falta
-    def esta_averiado(self):
-        x=bool(randint(0,1))
-        return x
     
-    def reset(self):
-        pass
-
-    def analizar_destino_paquete(self):         #El router analiza si el msj tiene como destino ese mismo router (si no lo es se va a transmitir)
-        pass
-
-    def transmitir_paquete(self):          #Es un metodo del router o de la lista? deberiamos incluir entre transmision y transmision el tiempo de latencia
-        pass
-
-    def cantidad_paquetes_envorec(self):        #para tener el dato de la cantidad de paquetes que recibio y envio para el grafico
-        pass
-
+   

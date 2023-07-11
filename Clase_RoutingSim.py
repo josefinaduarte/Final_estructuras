@@ -6,15 +6,8 @@ import matplotlib.pyplot as plt
 from collections import deque
 from funciones import *
 
-# mensaje1=Paquete(1,"Hola como estas",1,3,"24/03/2023, 11:11:11")
-# mensaje2=Paquete(1,"chau",2,3,"24/03/2023, 11:11:11")
-# mensaje3=Paquete(1,"bhikuhl",1,2,"24/03/2023, 16:11:11")
-# mensajes=[mensaje1,mensaje2,mensaje3]
-
-
 class RoutingSim():
     def __init__(self,tiempo,paquetes,routers):
-        #defina los eventos
         self.tiempo=tiempo
         self.paquetes=paquetes
         self.routers=routers
@@ -26,11 +19,7 @@ class RoutingSim():
     # Lo lanzo
 
         threading_generarpaq.start()
-
-            ## generar paquetes aleatorios cada tiempo aleatorio
-
-            ## romper router cada tiempo aleatorio
-            
+        
         fin = datetime.now()
         timer = (fin- inicio).seconds
         evento=False
@@ -56,11 +45,7 @@ class RoutingSim():
 
 
 
-    # def enviar_paquete(self,r,paquete):
-    #     ##espera que se libere el router
-    #     while r.estado != 'inactivo'or ocupado:
-    #         pass
-    #     ## espero por la latencia
+   
 
     def generador_paquetes(self, inicio):
         fin = datetime.now()
@@ -121,8 +106,6 @@ class RoutingSim():
         lista_routers.append("Router "+str(router.posicion))
         lista_enviados.append(router.enviados)
         lista_recibidos.append(router.recibidos)
-        print(lista_routers)
-        print(lista_enviados,lista_recibidos)
         plt.title(label="Cantidad de paquetes enviados por router")
         plt.xlabel("Routers")
         plt.ylabel("Cantidad de paquetes enviados")
@@ -136,28 +119,32 @@ class RoutingSim():
 
     
 
-    def crear_archivos_routers():
-        pass
 
-    def crear_archivo_cambioa_estado():
-        pass
+if __name__=="__main__": 
     
-    def baipass():
-        pass
-
-if __name__=="__main__":
-    #inicializo un cola vacia
-    ##Tiempo de la simulacion
-    tiempo=10
+    try:
+        tiempo=int(input("Ingrese por cuanto tiempo quiere correr la simulacion: "))
+        while tiempo<=0:
+            tiempo=int(input("Ingrese por cuanto tiempo quiere correr la simulacion: "))
+    except ValueError:
+        print("El tiempo ingresado no es valido")
+        tiempo=int(input("Ingrese por cuanto tiempo quiere correr la simulacion: "))
+               
 
 
     router1=Router(tiempo,1)
     router2=Router(tiempo,2)
     router3=Router(tiempo,3)
+    router4=Router(tiempo,4)
+    router5=Router(tiempo,5)
+    router6=Router(tiempo,6)
     routers=Lista()
     routers.append(router1)
     routers.append(router2)
     routers.append(router3)
+    routers.append(router4)
+    routers.append(router5)
+    routers.append(router6)
 
     paquetes = deque()
     Simulacion = RoutingSim(tiempo,paquetes,routers)
