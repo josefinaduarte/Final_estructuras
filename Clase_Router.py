@@ -6,7 +6,7 @@ import threading
  
 class Router():
     
-    def __init__(self,tiempo,posicion,estado=None,paquete=None,prox = None):  ##esta bien pasarle el tiempo y el inicio asi?
+    def __init__(self,tiempo,posicion,estado=None,paquete=None,prox = None):  
         
         inicio = datetime.now()
         self.posicion=posicion
@@ -16,7 +16,7 @@ class Router():
         self.enviados=0
         self.prox=prox
 
-        #arrancas el threath que lo rompe cada tanto
+        #arrancas el thread que lo rompe cada tanto
         threading_caidas = threading.Thread(target=self.caidas, args=(tiempo,inicio))
         threading_caidas.start()
 
@@ -24,7 +24,7 @@ class Router():
         fin = datetime.now()
         while tiempo > (fin- inicio).seconds:
             #tiempo aleatorio
-            tiempo_restante = (tiempo - (fin- inicio).seconds)-10 # por el timepo maximo que tarda en resetearse
+            tiempo_restante = (tiempo - (fin- inicio).seconds)-10 # por el tiempo maximo que tarda en resetearse
             if tiempo_restante > 0:
                 time_sleep(randint(0,min(0,tiempo_restante)))
                 if self.paquete==None:

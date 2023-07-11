@@ -11,7 +11,7 @@ class RoutingSim():
         self.tiempo=tiempo
         self.paquetes=paquetes
         self.routers=routers
-        #arranca threat
+        #arranca thread
 
         inicio = datetime.now()
         threading_generarpaq = threading.Thread(target=self.generador_paquetes, args=( inicio,)) #lista de mensajes
@@ -34,7 +34,7 @@ class RoutingSim():
             if len(self.paquetes) > 0:
                 paq = self.paquetes.pop()
                 #soluciono el evento
-                #enviar men
+ 
                 router = routers.buscar_router(paq.origen)
 
                 router.paquete=paq
@@ -69,7 +69,7 @@ class RoutingSim():
             dest=randint(1,self.routers.len)
             fecha=datetime.now()
             paquete=Paquete(id,mensaje,orig,dest,fecha)
-            ##agreguo paquete en la lista mensajes
+            ##agrego paquete en la lista mensajes
             self.paquetes.append(paquete)
             timer = (fin- inicio).seconds
 
