@@ -59,7 +59,7 @@ class RoutingSim():
         while self.tiempo > timer:
             #tiempo aleatorio
             tiempo_restante = self.tiempo - timer
-            tiempo_random = randint(1, min(tiempo_restante, 10))
+            tiempo_random = randint(1, min(tiempo_restante, 7))
 
             time_sleep(tiempo_random)
             ##genero paquete aleatorio
