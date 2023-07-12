@@ -22,6 +22,8 @@ class Router():
 
     def caidas(self,tiempo,inicio):
         fin = datetime.now()
+        while (self.estado=="agregado" or self.estado==None)  and tiempo > (fin- inicio).seconds:
+            fin = datetime.now()
         while tiempo > (fin- inicio).seconds:
             #tiempo aleatorio
             tiempo_restante = (tiempo - (fin- inicio).seconds)-10 # por el tiempo maximo que tarda en resetearse
